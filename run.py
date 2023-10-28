@@ -1,3 +1,22 @@
+# come back and change print and input messages
+def get_shot():
+
+    ok = "n"
+    while ok == "n":
+        try:
+            shot = input("please enter your guess")
+            shot = int(shot)
+            if shot < 0 or shot> 63:
+                print("incorrect number, please try again")
+            else:
+                ok == "y"
+                break
+        except:
+            print("incorrect, try again")
+
+    return shot
+
+
 def game_board(hit,miss,elim):
     """
     Game_board creates the board.
@@ -27,4 +46,5 @@ hit = [21,22]
 miss = [20,24,12,13]
 elim = [23]
 
+shot = get_shot()
 game_board(hit,miss,elim)
