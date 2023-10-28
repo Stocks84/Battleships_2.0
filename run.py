@@ -1,7 +1,7 @@
 # come back and change print and input messages
 def get_shot(no_double_hit):
-"""
-"""
+    """
+    """
     ok = "n"
     while ok == "n":
         try:
@@ -20,7 +20,7 @@ def get_shot(no_double_hit):
     return shot
 
 
-def game_board(hit,miss,elim):
+def game_board(hit,miss,sunk):
     """
     Game_board creates the board.
     """
@@ -36,7 +36,7 @@ def game_board(hit,miss,elim):
                 ch = " x "
             elif place in hit:
                 ch = " o "
-            elif place in elim:
+            elif place in sunk:
                 ch = " O "
             
 
@@ -45,10 +45,32 @@ def game_board(hit,miss,elim):
         print(x," ",row)
 
 
-hit = [21,22]
-miss = [20,24,12,13]
-elim = [23]
+def check_shot(shot,boat1,hit,miss,sunk):
+    """
+    """
+    if shot in boat1:
+        boat1.remove(shot)
+        if len(boat1) > 0:
+            hit.append(shot)
+        else:
+            sunk.append(shot)
+    else:
+        miss.append(shot)
 
-no_double_hit = hit + miss + elim
-shot = get_shot(no_double_hit)
-game_board(hit,miss,elim)
+    return boat1,hit,miss,sunk
+
+boat1 = [45,46,47]
+hit = []
+miss = []
+sunk = []
+
+for i in range(10):
+    no_double_hit = hit + miss + sunk
+    shot = get_shot(no_double_hit)
+    boat1,hit,miss,sunk = check_shot(shot,boat1,hit,miss,sunk)
+    game_board(hit,miss,sunk)
+
+    if len(boat1) < 1:
+        print("Winner")
+        break
+print("game over")
