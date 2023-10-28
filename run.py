@@ -1,6 +1,7 @@
 # come back and change print and input messages
-def get_shot():
-
+def get_shot(no_double_hit):
+"""
+"""
     ok = "n"
     while ok == "n":
         try:
@@ -8,6 +9,8 @@ def get_shot():
             shot = int(shot)
             if shot < 0 or shot> 63:
                 print("incorrect number, please try again")
+            elif shot in no_double_hit:
+                print("NO double hits")
             else:
                 ok == "y"
                 break
@@ -46,5 +49,6 @@ hit = [21,22]
 miss = [20,24,12,13]
 elim = [23]
 
-shot = get_shot()
+no_double_hit = hit + miss + elim
+shot = get_shot(no_double_hit)
 game_board(hit,miss,elim)
