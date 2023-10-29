@@ -45,7 +45,7 @@ def game_board(hit,miss,sunk):
         print(x," ",row)
 
 
-def check_shot(shot,boat1,hit,miss,sunk):
+def check_shot(shot,boat1,boat2,hit,miss,sunk):
     """
     """
     if shot in boat1:
@@ -54,12 +54,20 @@ def check_shot(shot,boat1,hit,miss,sunk):
             hit.append(shot)
         else:
             sunk.append(shot)
+
+    elif shot in boat2:
+        boat2.remove(shot)
+        if len(boat2) > 0:
+            hit.append(shot)
+        else:
+            sunk.append(shot)
     else:
         miss.append(shot)
 
-    return boat1,hit,miss,sunk
+    return boat1,boat2,hit,miss,sunk
 
 boat1 = [45,46,47]
+boat2 = [5,6,7]
 hit = []
 miss = []
 sunk = []
@@ -67,10 +75,10 @@ sunk = []
 for i in range(10):
     no_double_hit = hit + miss + sunk
     shot = get_shot(no_double_hit)
-    boat1,hit,miss,sunk = check_shot(shot,boat1,hit,miss,sunk)
+    boat1,boat2,hit,miss,sunk = check_shot(shot,boat1,boat2,hit,miss,sunk)
     game_board(hit,miss,sunk)
 
-    if len(boat1) < 1:
+    if len(boat1) < 1 and len(boat2) < 1:
         print("Winner")
         break
 print("game over")
