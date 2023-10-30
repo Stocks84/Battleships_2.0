@@ -1,3 +1,4 @@
+import os 
 from random import randrange
 
 
@@ -69,6 +70,16 @@ from random import randrange
 
 
 # come back and change print and input messages
+def clear():
+    """
+    Clear function to clean-up the terminal so things don't get messy.
+    """
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+clear()
+
+
 def get_shot(no_double_hit):
     """
     """
@@ -136,6 +147,24 @@ def check_shot(shot, boat1, boat2, hit, miss, sunk):
 
     return boat1, boat2, hit, miss, sunk
 
+
+boat1 = [45,46,47]
+boat2 = [5,6,7]
+hit = []
+miss = []
+sunk = []
+
+for i in range(10):
+    no_double_hit = hit + miss + sunk
+    shot = get_shot(no_double_hit)
+    boat1,boat2,hit,miss,sunk = check_shot(shot, boat1, boat2, hit, miss, sunk)
+    game_board(hit, miss, sunk)
+
+    if len(boat1) < 1 and len(boat2) < 1:
+        print("Winner")
+        break
+print("game over")
+
 # def check_ok(boat, taken):
 #     """
 #     """
@@ -193,20 +222,3 @@ def check_shot(shot, boat1, boat2, hit, miss, sunk):
 #         taken = taken + boat
 
 #     return ships, taken
-
-boat1 = [45,46,47]
-boat2 = [5,6,7]
-hit = []
-miss = []
-sunk = []
-
-for i in range(10):
-    no_double_hit = hit + miss + sunk
-    shot = get_shot(no_double_hit)
-    boat1,boat2,hit,miss,sunk = check_shot(shot, boat1, boat2, hit, miss, sunk)
-    game_board(hit, miss, sunk)
-
-    if len(boat1) < 1 and len(boat2) < 1:
-        print("Winner")
-        break
-print("game over")
